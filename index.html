@@ -667,33 +667,23 @@ section{padding:8rem 0;position:relative}
     <p class="section-intro fade-in">The AI analyzes your ad against the full avatar research , sub-avatar resonance, emotional territory hit or missed, specific line-level rewrites. Not generic feedback. Feedback against this specific woman.</p>
 
     <div class="adcenter-wrap fade-in">
-      <div class="adcenter-key-area" id="keyArea">
-        <div class="adcenter-label-row">
-          <span class="adcenter-field-label">Anthropic API Key</span>
-          <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:.1em">Stored in session only , never saved or shared</span>
+
+      <div style="background:var(--bg);padding:2rem 2.5rem;border-bottom:1px solid var(--border)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem">
+          <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase">Anthropic API Key</span>
+          <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:.1em">Goes directly to Anthropic , never stored anywhere</span>
         </div>
-        <div style="display:flex;gap:.75rem;align-items:center">
-          <input type="password" id="apiKeyInput" placeholder="sk-ant-..." style="flex:1;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:.85rem;padding:.85rem 1rem;outline:none;transition:border-color .3s;border-radius:0" onfocus="this.style.borderColor='rgba(200,146,42,0.4)'" onblur="this.style.borderColor='var(--border)'" onkeydown="if(event.key==='Enter')saveKey()"/>
-          <button onclick="saveKey()" style="background:var(--gold);border:none;color:#0C0A07;font-family:'Manrope',sans-serif;font-size:.85rem;font-weight:600;padding:.85rem 1.5rem;cursor:pointer;white-space:nowrap;border-radius:2px">Save Key</button>
-        </div>
+        <input type="password" id="apiKeyInput" placeholder="Paste your key here: sk-ant-api03-..." style="width:100%;background:var(--bg2);border:1px solid var(--border2);color:var(--text);font-family:'DM Mono',monospace;font-size:.85rem;padding:1rem 1.25rem;outline:none;border-radius:0;display:block" onfocus="this.style.borderColor='rgba(200,146,42,0.5)'" onblur="this.style.borderColor='var(--border2)'"/>
         <div style="margin-top:1.25rem;padding:1.25rem 1.5rem;background:var(--gold3);border-left:2px solid rgba(200,146,42,0.4)">
           <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:.75rem">Why do I need this?</p>
           <p style="font-size:.82rem;color:var(--text2);line-height:1.75;margin-bottom:.6rem">The Ad Center is powered by Claude, Anthropic's AI. When you paste a script and hit Analyze, your copy gets sent directly to Claude along with the full Seriva avatar research, and Claude returns a breakdown of how well your ad speaks to the diabetic woman we have profiled.</p>
-          <p style="font-size:.82rem;color:var(--text2);line-height:1.75;margin-bottom:.6rem">To do that, Claude needs to know you are an authorized user. That is what the API key is, it is your personal access credential from Anthropic. Think of it like a password that unlocks Claude's analysis capability.</p>
-          <p style="font-size:.82rem;color:var(--text2);line-height:1.75;margin-bottom:.75rem">Your key goes directly from your browser to Anthropic's servers. It is never sent to GitHub, never stored in a database, and disappears the moment you close this tab. Nobody else can see it or use it.</p>
-          <p style="font-size:.78rem;color:var(--text3);line-height:1.6">Get your free API key at <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--gold);text-decoration:none">console.anthropic.com/settings/keys</a> , You will need to create a free Anthropic account if you do not already have one. API usage is billed per use at a very low cost, a single ad analysis costs less than $0.01.</p>
+          <p style="font-size:.82rem;color:var(--text2);line-height:1.75;margin-bottom:.6rem">To do that, Claude needs to know you are an authorized user. That is what the API key is , it is your personal access credential from Anthropic. Think of it like a password that unlocks Claude's analysis capability.</p>
+          <p style="font-size:.82rem;color:var(--text2);line-height:1.75;margin-bottom:.75rem">Your key goes directly from your browser to Anthropic's servers. It is never sent to GitHub, never stored anywhere, and no one else can see it.</p>
+          <p style="font-size:.78rem;color:var(--text3);line-height:1.6">Get your key at <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--gold);text-decoration:none">console.anthropic.com/settings/keys</a> , Make sure you have added billing credits to your account. Each analysis costs less than $0.01.</p>
         </div>
       </div>
 
-      <div class="adcenter-key-confirmed" id="keyConfirmed" style="display:none;background:rgba(29,158,117,0.08);border:1px solid rgba(29,158,117,0.2);padding:1rem 1.5rem;display:none;align-items:center;justify-content:space-between">
-        <div style="display:flex;align-items:center;gap:.75rem">
-          <span style="color:#4ecba0;font-size:1rem">✓</span>
-          <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;color:#4ecba0;text-transform:uppercase">API Key Active</span>
-        </div>
-        <button onclick="clearKey()" style="background:transparent;border:1px solid rgba(29,158,117,0.3);color:#4ecba0;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .75rem;cursor:pointer;border-radius:2px">Change Key</button>
-      </div>
-
-      <div class="adcenter-input-area" id="adInputArea" style="opacity:.4;pointer-events:none">
+      <div class="adcenter-input-area" id="adInputArea">
         <div class="adcenter-label-row">
           <span class="adcenter-field-label">Your Ad Script or Copy</span>
           <div class="adcenter-format-btns">
@@ -818,42 +808,7 @@ document.getElementById('adInput').addEventListener('input',function(){
   document.getElementById('charCount').textContent=this.value.length+' characters'
 })
 
-// Key management
-function saveKey(){
-  const key=document.getElementById('apiKeyInput').value.trim()
-  if(!key.startsWith('sk-ant-')){
-    document.getElementById('apiKeyInput').style.borderColor='var(--rose)'
-    document.getElementById('apiKeyInput').placeholder='Must start with sk-ant-...'
-    return
-  }
-  sessionStorage.setItem('seriva_key',key)
-  document.getElementById('keyArea').style.display='none'
-  const confirmed=document.getElementById('keyConfirmed')
-  confirmed.style.display='flex'
-  const inputArea=document.getElementById('adInputArea')
-  inputArea.style.opacity='1'
-  inputArea.style.pointerEvents='auto'
-}
-function clearKey(){
-  sessionStorage.removeItem('seriva_key')
-  document.getElementById('keyArea').style.display='block'
-  document.getElementById('keyConfirmed').style.display='none'
-  document.getElementById('adInputArea').style.opacity='.4'
-  document.getElementById('adInputArea').style.pointerEvents='none'
-  document.getElementById('apiKeyInput').value=''
-}
-// On load, restore key if present
-window.addEventListener('DOMContentLoaded',()=>{
-  const stored=sessionStorage.getItem('seriva_key')
-  if(stored){
-    document.getElementById('keyArea').style.display='none'
-    const confirmed=document.getElementById('keyConfirmed')
-    confirmed.style.display='flex'
-    const inputArea=document.getElementById('adInputArea')
-    inputArea.style.opacity='1'
-    inputArea.style.pointerEvents='auto'
-  }
-})
+
 document.querySelectorAll('.fmt-btn').forEach(btn=>{
   btn.addEventListener('click',function(){
     document.querySelectorAll('.fmt-btn').forEach(b=>b.classList.remove('active'))
@@ -883,8 +838,13 @@ const loadingMessages=[
 async function analyzeAd(){
   const adText=document.getElementById('adInput').value.trim()
   if(!adText){document.getElementById('adInput').focus();return}
-  const apiKey=sessionStorage.getItem('seriva_key')
-  if(!apiKey){alert('Please enter your Anthropic API key first.');return}
+  const apiKey=document.getElementById('apiKeyInput').value.trim()
+  if(!apiKey||!apiKey.startsWith('sk-ant-')){
+    document.getElementById('apiKeyInput').focus()
+    document.getElementById('apiKeyInput').style.borderColor='var(--rose)'
+    alert('Please paste your Anthropic API key above first. It should start with sk-ant-')
+    return
+  }
 
   const btn=document.getElementById('analyzeBtn')
   btn.disabled=true
