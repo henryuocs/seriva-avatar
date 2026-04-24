@@ -992,12 +992,18 @@ If you could only change one thing about this ad to dramatically improve avatar 
         'anthropic-dangerous-direct-browser-access':'true'
       },
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
+        model:'claude-sonnet-4-6',
         max_tokens:1500,
         system:AVATAR_CONTEXT,
         messages:[{role:'user',content:userPrompt}]
       })
     })
+
+    if(!resp.ok){
+      const errData=await resp.json().catch(()=>({error:{message:'HTTP '+resp.status+' , '+resp.statusText}}))
+      throw new Error(errData?.error?.message||'HTTP '+resp.status)
+    }
+
     const data=await resp.json()
     clearInterval(msgInterval)
     fill.style.width='100%'
@@ -1036,12 +1042,21 @@ If you could only change one thing about this ad to dramatically improve avatar 
     },400)
   }catch(err){
     clearInterval(msgInterval)
-    document.getElementById('adLoading').style.display='none'
-    document.getElementById('adOutput').style.display='block'
-    document.getElementById('outputBody').innerHTML='<p style="color:var(--rose)">Analysis failed. Please try again.</p>'
-    document.getElementById('scoreBadges').innerHTML=''
-    btn.disabled=false
-    document.getElementById('btnText').textContent='Analyze Against Avatar'
+    fill.style.width='100%'
+    setTimeout(()=>{
+      document.getElementById('adLoading').style.display='none'
+      document.getElementById('adOutput').style.display='block'
+      document.getElementById('outputBody').innerHTML=`
+        <p style="color:var(--rose);margin-bottom:.75rem"><strong>Analysis failed</strong></p>
+        <p style="font-family:'DM Mono',monospace;font-size:.8rem;color:var(--text3);background:var(--bg);padding:1rem;line-height:1.8">${err.message}</p>
+        <p style="font-size:.82rem;color:var(--text2);margin-top:1rem;line-height:1.75">Common fixes:<br>
+        , Make sure your API key starts with <code style="background:var(--bg);padding:.1rem .4rem;font-size:.8rem">sk-ant-</code><br>
+        , Check you have credits in your <a href="https://console.anthropic.com" target="_blank" style="color:var(--gold)">Anthropic account</a><br>
+        , Try clearing your key and re-entering it</p>`
+      document.getElementById('scoreBadges').innerHTML=''
+      btn.disabled=false
+      document.getElementById('btnText').textContent='Analyze Against Avatar'
+    },300)
   }
 }
 </script>
