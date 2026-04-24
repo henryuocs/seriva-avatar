@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seriva , Avatar Research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Manrope:wght@300;400;500;600&family=DM+Mono:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#0C0A07;
+--bg2:#131108;
+--bg3:#1A1710;
+--text:#F2EDE4;
+--text2:#A09890;
+--text3:#6B6358;
+--gold:#C8922A;
+--gold2:rgba(200,146,42,0.15);
+--gold3:rgba(200,146,42,0.06);
+--rose:#9B5E6E;
+--rose2:rgba(155,94,110,0.15);
+--border:rgba(242,237,228,0.07);
+--border2:rgba(242,237,228,0.12);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+::selection{background:var(--gold2);color:var(--text)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.25rem 3rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,var(--bg) 0%,transparent 100%)}
+.nav-brand{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+.nav-links{display:flex;gap:2rem}
+.nav-links a{font-size:11px;letter-spacing:.12em;color:var(--text2);text-decoration:none;text-transform:uppercase;transition:color .3s}
+.nav-links a:hover{color:var(--text)}
+
+/* SECTIONS */
+section{padding:8rem 0;position:relative}
+.container{max-width:1100px;margin:0 auto;padding:0 3rem}
+.container-sm{max-width:780px;margin:0 auto;padding:0 3rem}
+.container-wide{max-width:1300px;margin:0 auto;padding:0 3rem}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0;overflow:hidden;position:relative}
+#hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(200,146,42,0.04) 0%,transparent 70%)}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.25em;color:var(--gold);text-transform:uppercase;margin-bottom:2rem;opacity:0;animation:fadeUp .8s .3s forwards}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(5rem,10vw,10rem);font-weight:300;line-height:1;letter-spacing:-.02em;margin-bottom:2.5rem;opacity:0;animation:fadeUp .8s .5s forwards}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:1.1rem;line-height:1.75;color:var(--text2);max-width:560px;margin-bottom:4rem;opacity:0;animation:fadeUp .8s .7s forwards}
+.hero-meta{display:flex;gap:3rem;opacity:0;animation:fadeUp .8s .9s forwards}
+.hero-meta-item{border-left:1px solid var(--gold);padding-left:1rem}
+.hero-meta-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:.25rem}
+.hero-meta-value{font-size:.9rem;color:var(--text2)}
+.scroll-hint{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fadeUp .8s 1.2s forwards}
+.scroll-hint span{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--text3);text-transform:uppercase}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s infinite}
+
+/* SECTION HEADERS */
+.section-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.25em;color:var(--gold);text-transform:uppercase;display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+.section-label::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--border2),transparent)}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:300;line-height:1.1;letter-spacing:-.01em;margin-bottom:1.5rem}
+.section-title em{font-style:italic;color:var(--gold)}
+.section-intro{font-size:1.05rem;color:var(--text2);line-height:1.8;max-width:680px;margin-bottom:4rem}
+.divider{width:100%;height:1px;background:var(--border);margin:6rem 0}
+
+/* SOURCES */
+#sources{padding:5rem 0;border-bottom:1px solid var(--border)}
+.sources-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border)}
+.source-card{background:var(--bg);padding:1.75rem;transition:background .3s}
+.source-card:hover{background:var(--bg3)}
+.source-icon{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:.75rem}
+.source-name{font-size:.95rem;font-weight:400;margin-bottom:.4rem}
+.source-desc{font-size:.8rem;color:var(--text3);line-height:1.6}
+
+/* SNAPSHOT STATS */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--border);margin:3rem 0}
+.stat-cell{background:var(--bg);padding:2rem 1.5rem}
+.stat-number{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--gold);line-height:1;margin-bottom:.5rem}
+.stat-label{font-size:.8rem;color:var(--text3);font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem}
+.stat-note{font-size:.8rem;color:var(--text2)}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:2rem;margin:3rem 0}
+.timeline::before{content:'';position:absolute;left:0;top:.5rem;bottom:.5rem;width:1px;background:linear-gradient(to bottom,var(--gold),var(--rose),transparent)}
+.timeline-item{position:relative;padding-bottom:2.5rem;padding-left:1.5rem}
+.timeline-dot{position:absolute;left:-2.3rem;top:.4rem;width:8px;height:8px;border-radius:50%;background:var(--gold);transition:transform .3s}
+.timeline-dot.rose{background:var(--rose)}
+.timeline-item:hover .timeline-dot{transform:scale(1.5)}
+.timeline-month{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.5rem}
+.timeline-event{font-size:1rem;color:var(--text);margin-bottom:.5rem}
+.timeline-detail{font-size:.875rem;color:var(--text2);line-height:1.7}
+
+/* PULL QUOTES */
+.pull-quote{border-left:2px solid var(--gold);padding:1.5rem 2rem;margin:3rem 0;background:var(--gold3)}
+.pull-quote p{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;font-style:italic;line-height:1.5;color:var(--text);margin-bottom:.75rem}
+.pull-quote cite{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase}
+
+.full-quote{padding:6rem 0;text-align:center;position:relative}
+.full-quote::before,.full-quote::after{content:'"';font-family:'Cormorant Garamond',serif;font-size:10rem;color:rgba(200,146,42,0.08);position:absolute;line-height:1;font-weight:300}
+.full-quote::before{top:-1rem;left:2rem}
+.full-quote::after{bottom:-4rem;right:2rem;content:'"'}
+.full-quote p{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3vw,2.5rem);font-weight:300;font-style:italic;line-height:1.5;color:var(--text);max-width:900px;margin:0 auto 1.5rem}
+.full-quote cite{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--text3);text-transform:uppercase}
+
+/* REDDIT QUOTES */
+.reddit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--border);margin:3rem 0}
+.reddit-card{background:var(--bg2);padding:1.75rem;transition:background .3s;position:relative}
+.reddit-card:hover{background:var(--bg3)}
+.reddit-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .3s}
+.reddit-card:hover::before{background:var(--gold)}
+.reddit-quote{font-size:.95rem;line-height:1.7;color:var(--text);margin-bottom:1rem;font-style:italic}
+.reddit-source{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.15em;color:var(--text3);text-transform:uppercase}
+.reddit-source span{color:var(--rose)}
+
+/* BEHAVIORS */
+.behaviors-list{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin:3rem 0}
+.behavior-item{background:var(--bg);padding:1.5rem 2rem;display:flex;gap:1.25rem;align-items:flex-start;transition:background .3s}
+.behavior-item:hover{background:var(--bg3)}
+.behavior-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);min-width:28px;padding-top:.2rem}
+.behavior-text{font-size:.9rem;line-height:1.65;color:var(--text2)}
+.behavior-text strong{color:var(--text);font-weight:400}
+
+/* EMOTIONS */
+.emotions-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);margin:3rem 0}
+.emotion-row{background:var(--bg);padding:2rem 2.5rem;display:grid;grid-template-columns:200px 1fr 2fr;gap:2rem;align-items:start;transition:background .3s}
+.emotion-row:hover{background:var(--bg2)}
+.emotion-name{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;font-style:italic}
+.emotion-name.gold{color:var(--gold)}
+.emotion-name.rose{color:var(--rose)}
+.emotion-root{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--text3);text-transform:uppercase;line-height:1.8;padding-top:.4rem}
+.emotion-desc{font-size:.9rem;color:var(--text2);line-height:1.75;padding-top:.2rem}
+
+/* SUB-AVATARS */
+.avatar-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin:3rem 0}
+.avatar-card{background:var(--bg);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:background .3s}
+.avatar-card:hover{background:var(--bg2)}
+.avatar-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:transparent;transition:background .4s}
+.avatar-card:nth-child(1)::after{background:var(--gold)}
+.avatar-card:nth-child(2)::after{background:var(--rose)}
+.avatar-card:nth-child(3)::after{background:var(--text3)}
+.avatar-num{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--text3);text-transform:uppercase;margin-bottom:1rem}
+.avatar-name{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;font-style:italic;margin-bottom:.3rem}
+.avatar-name.gold{color:var(--gold)}
+.avatar-name.rose{color:var(--rose)}
+.avatar-tag{font-size:.75rem;color:var(--text3);margin-bottom:1.75rem;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+.avatar-rows{border-top:1px solid var(--border);padding-top:1.25rem}
+.avatar-row{display:grid;grid-template-columns:80px 1fr;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--border)}
+.avatar-row:last-child{border-bottom:none}
+.avatar-row-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.15em;color:var(--text3);text-transform:uppercase;padding-top:.1rem}
+.avatar-row-val{font-size:.8rem;color:var(--text2);line-height:1.6}
+.avatar-card.strongest{position:relative}
+.badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--gold2);border:1px solid rgba(200,146,42,0.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:.35rem .75rem;border-radius:2px;margin-bottom:1rem}
+
+/* CLOSING */
+#closing{background:var(--bg2);border-top:1px solid var(--border);padding:10rem 0}
+.closing-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,5rem);font-weight:300;line-height:1.2;max-width:900px;margin-bottom:3rem}
+.closing-title em{font-style:italic;color:var(--gold)}
+.closing-body{font-size:1.1rem;line-height:1.85;color:var(--text2);max-width:720px;margin-bottom:2rem}
+.closing-line{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-style:italic;color:var(--text);border-left:2px solid var(--rose);padding-left:1.5rem;margin:3rem 0}
+.footer{border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--text3);text-transform:uppercase}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.1)}}
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* HIGHLIGHT */
+.highlight{background:var(--gold2);border:1px solid rgba(200,146,42,0.2);padding:2rem 2.5rem;margin:3rem 0;position:relative}
+.highlight::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--gold)}
+.highlight p{font-size:.95rem;line-height:1.8;color:var(--text)}
+
+/* SHOWER SECTION */
+#shower{background:var(--bg2);padding:10rem 0;text-align:center;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.shower-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.3em;color:var(--rose);text-transform:uppercase;margin-bottom:3rem}
+.shower-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,2.8vw,2.4rem);font-weight:300;font-style:italic;line-height:1.5;color:var(--text);max-width:880px;margin:0 auto 1.5rem}
+.shower-sub{font-size:.875rem;color:var(--text3);max-width:580px;margin:0 auto;line-height:1.75}
+
+/* TWO COL */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.col-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--text3);text-transform:uppercase;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+.col-body{font-size:.9rem;line-height:1.8;color:var(--text2)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Seriva , Avatar Research</div>
+  <div class="nav-links">
+    <a href="#who">Who She Is</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#words">Her Words</a>
+    <a href="#avatars">Sub-Avatars</a>
+    <a href="#closing">The Truth</a>
+    <a href="#sources-full">Sources</a>
+    <a href="#adcenter" style="color:var(--gold)">Ad Center ↗</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-eyebrow">Seriva / Hair Complex Gummies / Avatar Research</div>
+    <h1 class="hero-title">She Has<br>A <em>Name.</em></h1>
+    <p class="hero-sub">A deep-dive into the diabetic woman losing her hair , who she is, how she thinks, what she hides, and what she is actually buying when she buys a hair supplement.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Primary Avatar</span>
+        <span class="hero-meta-value">Type 2 Diabetic Woman, 43–58</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Research Sources</span>
+        <span class="hero-meta-value">6 sources, 4 Reddit threads</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Sub-Avatars</span>
+        <span class="hero-meta-value">3 distinct buying profiles</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<section id="sources">
+  <div class="container">
+    <div class="section-label">Research Methodology</div>
+    <p style="font-size:.9rem;color:var(--text3);margin-bottom:2rem;">Built from real voices, not assumptions. Every insight traced to a source.</p>
+    <div class="sources-grid">
+      <div class="source-card">
+        <div class="source-icon">Forum</div>
+        <div class="source-name">diabetes.co.uk Forum</div>
+        <div class="source-desc">20+ post thread, women sharing experiences since 2012. Real language, real dismissals, real coping mechanisms.</div>
+      </div>
+      <div class="source-card">
+        <div class="source-icon">Reddit</div>
+        <div class="source-name">r/diabetes, r/diabetes_t2</div>
+        <div class="source-desc">4 threads, 100+ comments. "Is anyone's hair falling out?" , raw, unfiltered, late-night confessions.</div>
+      </div>
+      <div class="source-card">
+        <div class="source-icon">Reddit</div>
+        <div class="source-name">r/Type1Diabetes</div>
+        <div class="source-desc">"Extreme hair loss" thread , 80+ responses. The shower as trauma site. The drawer of failed products.</div>
+      </div>
+      <div class="source-card">
+        <div class="source-icon">Community</div>
+        <div class="source-name">Women's Hair Loss Project</div>
+        <div class="source-desc">25 years of women documenting hair loss. The language of prisoner, hostage, shame. Identity loss in her own words.</div>
+      </div>
+      <div class="source-card">
+        <div class="source-icon">Personal</div>
+        <div class="source-name">NowPatient , First Person</div>
+        <div class="source-desc">Diagnosed at 23. "I didn't recognise myself anymore." The hairdresser who noticed before she did.</div>
+      </div>
+      <div class="source-card">
+        <div class="source-icon">Framework</div>
+        <div class="source-name">Evolve Avatar Framework</div>
+        <div class="source-desc">5-category structure: Desire, Experience, Emotion, Behavior, Demographic. Applied to raw research data.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO SHE IS -->
+<section id="who">
+  <div class="container">
+    <div class="section-label">The Avatar</div>
+    <h2 class="section-title fade-in">On paper, she looks<br>like <em>this.</em></h2>
+    <p class="section-intro fade-in">Demographics are the starting point, not the destination. Here is what the data tells you before you go deeper.</p>
+
+    <div class="stats-row fade-in">
+      <div class="stat-cell">
+        <div class="stat-number">43–58</div>
+        <div class="stat-label">Age Range</div>
+        <div class="stat-note">Peak: 46–54. Past the "figuring it out" phase.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">2–8</div>
+        <div class="stat-label">Years Diagnosed</div>
+        <div class="stat-note">Long enough to have adapted. Not so long she's numb.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">97%</div>
+        <div class="stat-label">On Metformin</div>
+        <div class="stat-note">The medication silently depleting what her hair needs.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">3+</div>
+        <div class="stat-label">Failed Solutions</div>
+        <div class="stat-note">Biotin. Castor oil. A new shampoo. None of it worked.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">0</div>
+        <div class="stat-label">Doctor Answers</div>
+        <div class="stat-note">"That's normal with diabetes." End of conversation.</div>
+      </div>
+    </div>
+
+    <div class="two-col fade-in" style="margin-top:5rem">
+      <div>
+        <div class="col-label">Before Diabetes</div>
+        <div class="col-body">
+          <p style="margin-bottom:1rem">She was the woman people described as put together. Not necessarily glamorous , but consistent. She had a look. A way she showed up. Her hair was part of that. Not in a vain way. More in the way that when you get ready in the morning and it goes well, you feel like yourself.</p>
+          <p>She was not someone who obsessed over appearance. But she had a routine. She got her hair done every 6–8 weeks. She had products that worked. She had a version of herself she could count on every morning.</p>
+        </div>
+      </div>
+      <div>
+        <div class="col-label">After Diabetes</div>
+        <div class="col-body">
+          <p style="margin-bottom:1rem">The diagnosis arrived and began renegotiating everything. The food. The medication. The monitoring. The social complexity. She adapted to all of it. She told people she was fine. Some days she even meant it.</p>
+          <p>What she did not sign up for , what nobody told her , was that diabetes was going to keep taking things. That the list was not finished.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline" style="background:var(--bg2)">
+  <div class="container">
+    <div class="section-label">The Discovery Timeline</div>
+    <h2 class="section-title fade-in">How it <em>actually</em> happens.</h2>
+    <p class="section-intro fade-in">Not "she noticed hair loss." The specific sequence of events, month by month, as documented by real women in forums and Reddit threads. This is what she has lived through.</p>
+
+    <div class="timeline">
+      <div class="timeline-item fade-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-month">Month 1–2</div>
+        <div class="timeline-event">More hair in the drain than usual.</div>
+        <div class="timeline-detail">She tells herself it is the season changing. Or stress. Everyone loses extra hair when they are stressed. She dismisses it without fully deciding to dismiss it.</div>
+      </div>
+      <div class="timeline-item fade-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-month">Month 3–4</div>
+        <div class="timeline-event">The ponytail feels different in her hand.</div>
+        <div class="timeline-detail">She ties it tighter to compensate. She looks at it in the mirror and a small knot forms in her chest. She unties it. Styles it differently. This is the moment her behavior starts changing invisibly , she is parting around something, without ever consciously deciding to.</div>
+      </div>
+      <div class="timeline-item fade-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-month">Month 4–5</div>
+        <div class="timeline-event">The hairdresser says something.</div>
+        <div class="timeline-detail">"Your hair seems a little thinner than last time." The hairdresser doesn't need to say much. The woman knows. Heat rises in her face. She says "I've been stressed." She tips well. She does not go back for months.</div>
+      </div>
+      <div class="timeline-item fade-in">
+        <div class="timeline-dot rose"></div>
+        <div class="timeline-month">Month 6–7</div>
+        <div class="timeline-event">The Google rabbit hole.</div>
+        <div class="timeline-detail">She learns "telogen effluvium." She learns metformin depletes B12. She feels two things at once: rage that nobody told her, and a bitter vindication. One woman on Reddit: <em>"I also thought she was crazy and googled it and it turns out diabetes can cause hair loss."</em></div>
+      </div>
+      <div class="timeline-item fade-in">
+        <div class="timeline-dot rose"></div>
+        <div class="timeline-month">Month 7–8</div>
+        <div class="timeline-event">She brings it up to her doctor.</div>
+        <div class="timeline-detail">Almost doesn't. She feels embarrassed raising something cosmetic when the appointment is supposed to be about her A1C. She is told: "That's normal with diabetes" or "probably stress." She goes home feeling like she wasted everyone's time. She doesn't bring it up again.</div>
+      </div>
+      <div class="timeline-item fade-in">
+        <div class="timeline-dot rose"></div>
+        <div class="timeline-month">Month 8–12</div>
+        <div class="timeline-event">Biotin. Castor oil. A new shampoo. Nothing works.</div>
+        <div class="timeline-detail">She builds a quiet drawer of things that have not worked. She does not throw them away. She does not tell anyone about this drawer. Talking about it would mean admitting this is now a serious problem she is actively trying to solve.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWER -->
+<section id="shower">
+  <div class="container-sm">
+    <div class="shower-label">The Primary Trauma Site</div>
+    <p class="shower-quote fade-in">"I'd be standing in the shower and could feel my hair falling out of my head and running down my legs with the water."</p>
+    <p class="shower-sub fade-in">, r/Type1Diabetes. The most specific, most honest sentence in all the research. The mirror is where she manages. The shower is where she confronts. Every morning. Without permission.</p>
+  </div>
+</section>
+
+<!-- HER WORDS -->
+<section id="words">
+  <div class="container">
+    <div class="section-label">In Her Own Words</div>
+    <h2 class="section-title fade-in">What she says when she thinks<br>no one is <em>grading her.</em></h2>
+    <p class="section-intro fade-in">Pulled verbatim from Reddit threads and diabetes forums. No polish. No marketing language. This is how she actually talks about this , alone, at night, to strangers on the internet.</p>
+
+    <div class="reddit-grid">
+      <div class="reddit-card fade-in">
+        <div class="reddit-quote">"I'm tired of dealing with diabetes and every shit that it causes."</div>
+        <div class="reddit-source">r/diabetes · <span>Type 2 Woman</span></div>
+      </div>
+      <div class="reddit-card fade-in">
+        <div class="reddit-quote">"My GP is always abrupt with me so I stopped asking him anything and Google instead."</div>
+        <div class="reddit-source">diabetes.co.uk forum · <span>Long-term T2D</span></div>
+      </div>
+      <div class="reddit-card fade-in">
+        <div class="reddit-quote">"I feel much less alone."</div>
+        <div class="reddit-source">r/Type1Diabetes · <span>Newly diagnosed woman</span></div>
+      </div>
+      <div class="reddit-card fade-in">
+        <div class="reddit-quote">"I didn't recognise myself anymore and felt like a shell of myself."</div>
+        <div class="reddit-source">NowPatient personal account · <span>Diagnosed at 23</span></div>
+      </div>
+      <div class="reddit-card fade-in">
+        <div class="reddit-quote">"You just are not told about any of it at diagnosis. Even when I queried it, the team was unsure about it."</div>
+        <div class="reddit-source">NowPatient · <span>T2D Woman</span></div>
+      </div>
+      <div class="reddit-card fade-in">
+        <div class="reddit-quote">"All my vitamin and mineral levels are normal, and so is my thyroid. It is just so frustrating."</div>
+        <div class="reddit-source">r/diabetes · <span>T2D, 48 years old</span></div>
+      </div>
+      <div class="reddit-card fade-in">
+        <div class="reddit-quote">"My scalp shows through but the rest of my hair is thick. It looks so uneven."</div>
+        <div class="reddit-source">diabetes.co.uk forum · <span>Forum member</span></div>
+      </div>
+      <div class="reddit-card fade-in">
+        <div class="reddit-quote">"I remember cancelling plans because I didn't want to be seen. I dreaded washing my hair, afraid of how much would come out."</div>
+        <div class="reddit-source">hairlove.com · <span>Personal account</span></div>
+      </div>
+      <div class="reddit-card fade-in">
+        <div class="reddit-quote">"Finding out about this more on Instagram has helped me so much and definitely made me feel less alone."</div>
+        <div class="reddit-source">NowPatient · <span>T2D Woman</span></div>
+      </div>
+    </div>
+
+    <div class="pull-quote fade-in">
+      <p>The language is plain. Self-deprecating. She uses "just" and "a bit" to soften the weight of what she is describing. "My hair is a bit thinner." "I've just been noticing a little more in the brush." She is performing understatement about something that is breaking her heart.</p>
+      <cite>Pattern identified across all six sources</cite>
+    </div>
+  </div>
+</section>
+
+<!-- HIDING BEHAVIORS -->
+<section id="behaviors" style="background:var(--bg2)">
+  <div class="container">
+    <div class="section-label">Behavioral Fingerprints</div>
+    <h2 class="section-title fade-in">What she does that<br>nobody <em>sees.</em></h2>
+    <p class="section-intro fade-in">These are the behaviors that prove everything. When she recognizes these in an ad, she knows it was made for her. They are the daily evidence of her inner state , invisible to everyone except her.</p>
+
+    <div class="behaviors-list fade-in">
+      <div class="behavior-item">
+        <div class="behavior-num">01</div>
+        <div class="behavior-text"><strong>Wears her hair up almost exclusively.</strong> Not by style choice. The bun, the clip, the ponytail , anything to keep the thinning crown out of sight. She tells herself it's more practical.</div>
+      </div>
+      <div class="behavior-item">
+        <div class="behavior-num">02</div>
+        <div class="behavior-text"><strong>Parts her hair differently than she used to.</strong> She has spent real time figuring out which side looks better. It takes her longer to get ready. She does not explicitly acknowledge why.</div>
+      </div>
+      <div class="behavior-item">
+        <div class="behavior-num">03</div>
+        <div class="behavior-text"><strong>Sits strategically in group photos.</strong> She knows which side of her head photographs better. She positions herself automatically now, without thinking.</div>
+      </div>
+      <div class="behavior-item">
+        <div class="behavior-num">04</div>
+        <div class="behavior-text"><strong>Has declined a pool, beach, or spa invitation.</strong> Water removes all styling. Water makes the thinning undeniable. She cited another reason. It was a lie.</div>
+      </div>
+      <div class="behavior-item">
+        <div class="behavior-num">05</div>
+        <div class="behavior-text"><strong>Dreads washing her hair.</strong> She counts the clumps in her hands. More than yesterday, or less? This has become a daily ritual of dread she has not named aloud to anyone.</div>
+      </div>
+      <div class="behavior-item">
+        <div class="behavior-num">06</div>
+        <div class="behavior-text"><strong>Has a saved folder of diabetic hair loss posts.</strong> Reddit threads. Forum pages. Bookmarks on her phone. She reads them at night. Nobody knows about this folder.</div>
+      </div>
+      <div class="behavior-item">
+        <div class="behavior-num">07</div>
+        <div class="behavior-text"><strong>Checks obsessively for baby hairs.</strong> After washing, she runs her fingers along her hairline looking for small, soft evidence that something is coming back. She doesn't let herself get her hopes up.</div>
+      </div>
+      <div class="behavior-item">
+        <div class="behavior-num">08</div>
+        <div class="behavior-text"><strong>Has not been to the hairdresser in months.</strong> Possibly 4. Possibly 8. She is avoiding the chair because the stylist will see the truth most clearly, and she is not ready for that conversation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMOTIONAL ARCHITECTURE -->
+<section id="emotions">
+  <div class="container">
+    <div class="section-label">Emotional Architecture</div>
+    <h2 class="section-title fade-in">Five emotions. Each with<br>a <em>root cause.</em></h2>
+    <p class="section-intro fade-in">Not "she feels sad." Every emotion in this avatar has a specific origin. Knowing the origin tells you exactly what to say , and what not to.</p>
+
+    <div class="emotions-grid fade-in">
+      <div class="emotion-row">
+        <div class="emotion-name gold">Shame</div>
+        <div class="emotion-root">Rooted in<br>self-policing</div>
+        <div class="emotion-desc">She believes that caring about a cosmetic problem when she has a serious health condition is shallow. She has internalized this. She polices herself. "I should be grateful it's not worse." This shame keeps her from asking for help, talking about it, or feeling she deserves a solution.</div>
+      </div>
+      <div class="emotion-row">
+        <div class="emotion-name rose">Rage</div>
+        <div class="emotion-root">Rooted in<br>the dismissal</div>
+        <div class="emotion-desc">She came to her doctor with a real symptom. She was sent home with nothing. She was told it was stress, aging, or not their problem. This rage is quiet and old and has nowhere to go. One woman: "My GP is always abrupt with me so I stopped asking him anything and Google instead."</div>
+      </div>
+      <div class="emotion-row">
+        <div class="emotion-name" style="color:var(--text2)">Grief</div>
+        <div class="emotion-root">Rooted in<br>identity loss</div>
+        <div class="emotion-desc">She does not look like herself anymore. Not in photos, not in the mirror, not when she catches her reflection unexpectedly. This is not just about hair. It is about continuity of identity. She is grieving a version of herself she cannot get back. "I didn't recognise myself anymore."</div>
+      </div>
+      <div class="emotion-row">
+        <div class="emotion-name" style="color:var(--text3)">Exhaustion</div>
+        <div class="emotion-root">Rooted in<br>cumulative weight</div>
+        <div class="emotion-desc">She is tired. Not just physically. She is tired of adapting. Tired of monitoring. Tired of modifying. Tired of being disciplined and responsible and gracious about all of it. The hair loss is just the latest thing she has to manage, and she has nothing left to draw on.</div>
+      </div>
+      <div class="emotion-row">
+        <div class="emotion-name gold" style="font-style:normal;font-size:1.4rem">Fragile Hope</div>
+        <div class="emotion-root">Rooted in<br>previous failures</div>
+        <div class="emotion-desc">She has been disappointed before. Biotin failed. Oils failed. The doctor failed. Her hope is real but battered. She does not want to want this to work, because if it doesn't work it will break something in her. Her walls are up. She needs a product that acknowledges being failed before she will believe again.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE T2D DISTINCTION -->
+<section style="background:var(--bg2)">
+  <div class="container-sm">
+    <div class="section-label">Critical Insight</div>
+    <h2 class="section-title fade-in">Why "just control your blood sugar"<br>does not <em>fix this.</em></h2>
+
+    <div class="highlight fade-in">
+      <p>The T1D Reddit threads show a clear pattern: hair falls out acutely after diagnosis, regrows when blood sugar is controlled. That is not this woman. She is not in acute crisis. She has been managing her condition for years. Her blood sugar is reasonably controlled. She is on metformin. And her hair is still going , gradually, quietly, persistently.</p>
+    </div>
+
+    <p class="fade-in" style="font-size:.95rem;line-height:1.85;color:var(--text2);margin-bottom:1.5rem">Several T2D women in the threads confirmed they had checked everything: thyroid normal, iron normal, hormones normal, vitamins normal. Still losing hair. Still no answer. One woman wrote: <em style="color:var(--text)">"All my vitamin and mineral levels are normal, and so is my thyroid. It is just so frustrating."</em></p>
+
+    <p class="fade-in" style="font-size:.95rem;line-height:1.85;color:var(--text2)">Blood sugar being controlled does not fix the metformin B12 depletion. It does not fix the chronic DHT elevation from insulin resistance. It does not fix the metabolic stress on follicles that is a feature of long-term T2D, not a bug of acute crisis. This is why biotin failed. This is why she is still looking.</p>
+  </div>
+</section>
+
+<!-- SUB-AVATARS -->
+<section id="avatars">
+  <div class="container">
+    <div class="section-label">The Three Sub-Avatars</div>
+    <h2 class="section-title fade-in">Not one woman.<br><em>Three.</em></h2>
+    <p class="section-intro fade-in">Each is real. Each buys for a different reason. Knowing which one you are writing for changes every word of copy. The strongest angle targets all three but leads with Avatar 1.</p>
+
+    <div class="avatar-cards fade-in">
+      <div class="avatar-card strongest">
+        <div class="badge">★ Largest Pool</div>
+        <div class="avatar-num">Sub-Avatar 01</div>
+        <div class="avatar-name gold">The Adapter</div>
+        <div class="avatar-tag">Managing diabetes successfully · 3+ years</div>
+        <div class="avatar-rows">
+          <div class="avatar-row"><div class="avatar-row-label">Desire</div><div class="avatar-row-val">To feel like herself again. Not dramatic regrowth , just to look in the mirror without seeing evidence of everything diabetes has taken.</div></div>
+          <div class="avatar-row"><div class="avatar-row-label">Experience</div><div class="avatar-row-val">Tried biotin. Didn't work. Doctor dismissed her. Managing it silently for 2+ years.</div></div>
+          <div class="avatar-row"><div class="avatar-row-label">Emotion</div><div class="avatar-row-val">Quiet grief wrapped in competent practicality. She would not describe herself as suffering. But something is missing.</div></div>
+          <div class="avatar-row"><div class="avatar-row-label">Key Behavior</div><div class="avatar-row-val">Styles around the thinning every morning without acknowledging she is doing it.</div></div>
+          <div class="avatar-row"><div class="avatar-row-label">She says</div><div class="avatar-row-val" style="font-style:italic;color:var(--text)">"I'm just going to have to accept this." But she hasn't. That's why she's still scrolling.</div></div>
+          <div class="avatar-row"><div class="avatar-row-label">She needs</div><div class="avatar-row-val">Validation that this is real and specific to her , not generic hair loss. And a mechanism that explains why biotin failed.</div></div>
+        </div>
+      </div>
+      <div class="avatar-card">
+        <div class="badge" style="background:var(--rose2);border-color:rgba(155,94,110,0.3);color:var(--rose)">Most Emotionally Raw</div>
+        <div class="avatar-num">Sub-Avatar 02</div>
+        <div class="avatar-name rose">The Newly Discovered</div>
+        <div class="avatar-tag">6–18 months in · Just connected the dots</div>
+        <div class="avatar-rows">
+          <div class="avatar-row"><div class="avatar-row-label">Desire</div><div class="avatar-row-val">An immediate answer. She has just learned why this is happening and wants to know what to do right now.</div></div>
+          <div class="avatar-row"><div class="avatar-row-label">Experience</div><div class="avatar-row-val">Just connected diabetes to hair loss. Just had the doctor dismissal. Currently deep in Google rabbit holes.</div></div>
+          <div class="avatar-row"><div class="avatar-row-label">Emotion</div><div class="avatar-row-val">Active rage at the information gap. Vindication mixed with grief. She is leaving the comments that say "wait, why did no one tell me this?"</div></div>
+          <div class="avatar-row"><div class="avatar-row-label">Key Behavior</div><div class="avatar-row-val">Currently buying and trying things. She has probably bought something in the last 3 months.</div></div>
+          <div class="avatar-row"><div class="avatar-row-label">She says</div><div class="avatar-row-val" style="font-style:italic;color:var(--text)">"I can't believe my doctor never mentioned this. I found out from Instagram."</div></div>
+          <div class="avatar-row"><div class="avatar-row-label">She needs</div><div class="avatar-row-val">To feel seen in the specific experience of learning this alone. "This is for you" is the line that converts her.</div></div>
+        </div>
+      </div>
+      <div class="avatar-card">
+        <div class="badge" style="background:rgba(107,99,88,0.2);border-color:rgba(107,99,88,0.3);color:var(--text3)">Hardest to Convert / Highest Value</div>
+        <div class="avatar-num">Sub-Avatar 03</div>
+        <div class="avatar-name" style="color:var(--text2)">The Skeptic</div>
+        <div class="avatar-tag">Has tried everything · Stopped looking · Not done</div>
+        <div class="avatar-rows">
+          <div class="avatar-row"><div class="avatar-row-label">Desire</div><div class="avatar-row-val">She doesn't let herself name the desire anymore. But underneath: she wants the version of herself back from before all of this.</div></div>
+          <div class="avatar-row"><div class="avatar-row-label">Experience</div><div class="avatar-row-val">Multiple product failures. Doctor dismissal. Has been told by someone close to her she looks fine. Which did not help.</div></div>
+          <div class="avatar-row"><div class="avatar-row-label">Emotion</div><div class="avatar-row-val">Resignation over grief. She has done her crying. But resignation is not acceptance. It is suspended grief.</div></div>
+          <div class="avatar-row"><div class="avatar-row-label">Key Behavior</div><div class="avatar-row-val">Still instinctively touches her hair in conversations. Still adjusts her part in mirrors. The body remembers what the mind let go.</div></div>
+          <div class="avatar-row"><div class="avatar-row-label">She says</div><div class="avatar-row-val" style="font-style:italic;color:var(--text)">"I've tried everything. Nothing works for me specifically."</div></div>
+          <div class="avatar-row"><div class="avatar-row-label">She needs</div><div class="avatar-row-val">Not hope. Explanation. "Regular vitamins can't fix this because they're treating vitamin deficiency, not metabolic stress" , that line wakes her up.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section id="closing">
+  <div class="container-sm">
+    <div class="section-label">The Emotional Truth</div>
+    <h2 class="closing-title fade-in">She is not buying<br>hair growth.<br>She is buying <em>herself back.</em></h2>
+    <p class="closing-body fade-in">She is not buying thicker hair. That is the product. That is not what she is buying. She is buying the morning where she gets ready without it being a problem to solve. The photo where she does not check how her part looks before the shutter clicks. The hairdresser appointment she is not dreading. The feeling , even for a morning , of being the woman she was before diabetes started rewriting her.</p>
+    <div class="closing-line fade-in">She is buying evidence that she has not lost this too.</div>
+    <p class="closing-body fade-in">She has accepted so much from this condition. She adapted, adjusted, made peace. The hair is the one place where she has not fully surrendered. Somewhere underneath the resignation is a woman who is still refusing. She just needs something good enough to give that refusal to.</p>
+    <p class="closing-body fade-in" style="font-size:.875rem;color:var(--text3)">That is the emotional truth. Every word of copy, every frame of video, every hook , must ultimately lead back to that.</p>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<section id="sources-full" style="background:var(--bg2);padding:8rem 0;border-top:1px solid var(--border)">
+  <div class="container">
+    <div class="section-label">Primary Sources</div>
+    <h2 class="section-title fade-in">Where this research<br><em>came from.</em></h2>
+    <p class="section-intro fade-in">Every insight in this document traces back to a real voice. These are the original threads , read them yourself and you will hear exactly who we are writing for.</p>
+
+    <div class="sources-full-grid fade-in">
+      <a href="https://www.reddit.com/r/diabetes_t1/comments/1fnossk/have_you_experienced_or_heard_of_hair_loss_due_to/" target="_blank" class="source-full-card">
+        <div class="source-full-top">
+          <div class="source-full-sub">r/diabetes_t1</div>
+          <div class="source-full-arrow">↗</div>
+        </div>
+        <div class="source-full-title">"Have you experienced or heard of hair loss due to diabetes?"</div>
+        <div class="source-full-meta">38 comments · T1D women sharing timelines, coping mechanisms, the biotin cycle</div>
+      </a>
+      <a href="https://www.reddit.com/r/diabetes/comments/18i1fl0/does_anyone_here_had_hair_loss_as_one_of_their/" target="_blank" class="source-full-card">
+        <div class="source-full-top">
+          <div class="source-full-sub">r/diabetes</div>
+          <div class="source-full-arrow">↗</div>
+        </div>
+        <div class="source-full-title">"Does anyone here had hair loss as one of their symptoms?"</div>
+        <div class="source-full-meta">33 comments · The "annoying symptom nobody talks about" , castor oil, bamboo extract, resignation</div>
+      </a>
+      <a href="https://www.reddit.com/r/Type1Diabetes/comments/1evnigo/extreme_hair_loss/" target="_blank" class="source-full-card">
+        <div class="source-full-top">
+          <div class="source-full-sub">r/Type1Diabetes</div>
+          <div class="source-full-arrow">↗</div>
+        </div>
+        <div class="source-full-title">"Extreme hair loss"</div>
+        <div class="source-full-meta">81 comments · The shower as trauma site. Clumps in hands. "I need hope. When will this end?"</div>
+      </a>
+      <a href="https://www.reddit.com/r/diabetes/comments/1gi46jr/is_anyones_hair_falling_out/" target="_blank" class="source-full-card">
+        <div class="source-full-top">
+          <div class="source-full-sub">r/diabetes</div>
+          <div class="source-full-arrow">↗</div>
+        </div>
+        <div class="source-full-title">"Is anyone's hair falling out?"</div>
+        <div class="source-full-meta">30 comments · T2D women. All levels normal. Thyroid normal. Still losing hair. Still no answer.</div>
+      </a>
+      <a href="https://www.reddit.com/r/diabetes/comments/132llde/hair_loss/" target="_blank" class="source-full-card">
+        <div class="source-full-top">
+          <div class="source-full-sub">r/diabetes</div>
+          <div class="source-full-arrow">↗</div>
+        </div>
+        <div class="source-full-title">"Hair loss"</div>
+        <div class="source-full-meta">20 comments · Proxy story , sister with kidney transplant develops diabetes. The first time the sibling realizes it's real.</div>
+      </a>
+      <a href="https://www.reddit.com/r/diabetes/comments/1j7p770/lada_hair_loss/" target="_blank" class="source-full-card">
+        <div class="source-full-top">
+          <div class="source-full-sub">r/diabetes</div>
+          <div class="source-full-arrow">↗</div>
+        </div>
+        <div class="source-full-title">"LADA hair loss?"</div>
+        <div class="source-full-meta">6 comments · "My husband even commented that my hair looks thinner at the scalp… I'm in tears." Newly diagnosed, honeymoon phase.</div>
+      </a>
+      <a href="https://www.reddit.com/r/diabetes/comments/u9zn2b/has_anyone_suddenly_experienced_hairloss_after/" target="_blank" class="source-full-card">
+        <div class="source-full-top">
+          <div class="source-full-sub">r/diabetes</div>
+          <div class="source-full-arrow">↗</div>
+        </div>
+        <div class="source-full-title">"Has anyone suddenly experienced hair loss after becoming diabetic?"</div>
+        <div class="source-full-meta">25 comments · The metformin connection confirmed. Women naming the specific medication as the culprit for the first time.</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- AD CENTER -->
+<section id="adcenter" style="padding:8rem 0;border-top:1px solid var(--border)">
+  <div class="container">
+    <div class="section-label">Ad Center</div>
+    <h2 class="section-title fade-in">Paste any script or copy.<br>Get <em>avatar-calibrated</em> feedback.</h2>
+    <p class="section-intro fade-in">The AI analyzes your ad against the full avatar research , sub-avatar resonance, emotional territory hit or missed, specific line-level rewrites. Not generic feedback. Feedback against this specific woman.</p>
+
+    <div class="adcenter-wrap fade-in">
+      <div class="adcenter-key-area" id="keyArea">
+        <div class="adcenter-label-row">
+          <span class="adcenter-field-label">Anthropic API Key</span>
+          <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:.1em">Stored in session only , never saved or shared</span>
+        </div>
+        <div style="display:flex;gap:.75rem;align-items:center">
+          <input type="password" id="apiKeyInput" placeholder="sk-ant-..." style="flex:1;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:.85rem;padding:.85rem 1rem;outline:none;transition:border-color .3s;border-radius:0" onfocus="this.style.borderColor='rgba(200,146,42,0.4)'" onblur="this.style.borderColor='var(--border)'" onkeydown="if(event.key==='Enter')saveKey()"/>
+          <button onclick="saveKey()" style="background:var(--gold);border:none;color:#0C0A07;font-family:'Manrope',sans-serif;font-size:.85rem;font-weight:600;padding:.85rem 1.5rem;cursor:pointer;white-space:nowrap;border-radius:2px">Save Key</button>
+        </div>
+        <div style="margin-top:1.25rem;padding:1.25rem 1.5rem;background:var(--gold3);border-left:2px solid rgba(200,146,42,0.4)">
+          <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:.75rem">Why do I need this?</p>
+          <p style="font-size:.82rem;color:var(--text2);line-height:1.75;margin-bottom:.6rem">The Ad Center is powered by Claude, Anthropic's AI. When you paste a script and hit Analyze, your copy gets sent directly to Claude along with the full Seriva avatar research, and Claude returns a breakdown of how well your ad speaks to the diabetic woman we have profiled.</p>
+          <p style="font-size:.82rem;color:var(--text2);line-height:1.75;margin-bottom:.6rem">To do that, Claude needs to know you are an authorized user. That is what the API key is, it is your personal access credential from Anthropic. Think of it like a password that unlocks Claude's analysis capability.</p>
+          <p style="font-size:.82rem;color:var(--text2);line-height:1.75;margin-bottom:.75rem">Your key goes directly from your browser to Anthropic's servers. It is never sent to GitHub, never stored in a database, and disappears the moment you close this tab. Nobody else can see it or use it.</p>
+          <p style="font-size:.78rem;color:var(--text3);line-height:1.6">Get your free API key at <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--gold);text-decoration:none">console.anthropic.com/settings/keys</a> , You will need to create a free Anthropic account if you do not already have one. API usage is billed per use at a very low cost, a single ad analysis costs less than $0.01.</p>
+        </div>
+      </div>
+
+      <div class="adcenter-key-confirmed" id="keyConfirmed" style="display:none;background:rgba(29,158,117,0.08);border:1px solid rgba(29,158,117,0.2);padding:1rem 1.5rem;display:none;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:.75rem">
+          <span style="color:#4ecba0;font-size:1rem">✓</span>
+          <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;color:#4ecba0;text-transform:uppercase">API Key Active</span>
+        </div>
+        <button onclick="clearKey()" style="background:transparent;border:1px solid rgba(29,158,117,0.3);color:#4ecba0;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .75rem;cursor:pointer;border-radius:2px">Change Key</button>
+      </div>
+
+      <div class="adcenter-input-area" id="adInputArea" style="opacity:.4;pointer-events:none">
+        <div class="adcenter-label-row">
+          <span class="adcenter-field-label">Your Ad Script or Copy</span>
+          <div class="adcenter-format-btns">
+            <button class="fmt-btn active" data-fmt="Script/UGC">Script / UGC</button>
+            <button class="fmt-btn" data-fmt="Short Hook">Short Hook</button>
+            <button class="fmt-btn" data-fmt="Email/Long Form">Email / Long Form</button>
+            <button class="fmt-btn" data-fmt="Ad Copy">Ad Copy</button>
+          </div>
+        </div>
+        <textarea id="adInput" placeholder="Paste your ad script, hook, email body, or any copy here...&#10;&#10;Example:&#10;If diabetes is making your hair fall out, this is for you. Most doctors won't tell you this, but metformin depletes the nutrients your hair needs to grow..." spellcheck="true"></textarea>
+        <div class="adcenter-bottom-row">
+          <span class="char-count" id="charCount">0 characters</span>
+          <button class="analyze-btn" id="analyzeBtn" onclick="analyzeAd()">
+            <span id="btnText">Analyze Against Avatar</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="adcenter-output" id="adOutput" style="display:none">
+        <div class="output-header">
+          <div class="output-header-left">
+            <span class="output-label">Analysis</span>
+            <button class="clear-btn" onclick="clearAnalysis()">Clear ✕</button>
+          </div>
+          <div class="score-badges" id="scoreBadges"></div>
+        </div>
+        <div class="output-body" id="outputBody"></div>
+      </div>
+
+      <div class="adcenter-loading" id="adLoading" style="display:none">
+        <div class="loading-inner">
+          <div class="loading-bar"><div class="loading-fill" id="loadingFill"></div></div>
+          <div class="loading-text" id="loadingText">Reading the script...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>Seriva , Avatar Research Document</span>
+  <span>Compiled for Creative Strategy Assessment</span>
+</footer>
+
+<style>
+/* SOURCES FULL */
+.sources-full-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--border)}
+.source-full-card{background:var(--bg);padding:2rem;text-decoration:none;display:block;transition:background .3s;position:relative;overflow:hidden}
+.source-full-card:hover{background:var(--bg3)}
+.source-full-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.source-full-card:hover::after{transform:scaleX(1)}
+.source-full-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem}
+.source-full-sub{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase}
+.source-full-arrow{color:var(--text3);font-size:1rem;transition:transform .3s,color .3s}
+.source-full-card:hover .source-full-arrow{transform:translate(3px,-3px);color:var(--gold)}
+.source-full-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;font-style:italic;line-height:1.4;color:var(--text);margin-bottom:.75rem}
+.source-full-meta{font-size:.78rem;color:var(--text3);line-height:1.6}
+
+/* AD CENTER */
+.adcenter-wrap{display:flex;flex-direction:column;gap:1px;background:var(--border)}
+.adcenter-input-area{background:var(--bg);padding:2.5rem}
+.adcenter-label-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;gap:1rem}
+.adcenter-field-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+.adcenter-format-btns{display:flex;gap:.5rem;flex-wrap:wrap}
+.fmt-btn{background:transparent;border:1px solid var(--border2);color:var(--text3);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:.4rem .85rem;cursor:pointer;transition:all .25s;border-radius:2px}
+.fmt-btn:hover{border-color:var(--gold);color:var(--gold)}
+.fmt-btn.active{background:var(--gold2);border-color:rgba(200,146,42,0.4);color:var(--gold)}
+#adInput{width:100%;min-height:220px;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-family:'Manrope',sans-serif;font-size:.9rem;line-height:1.7;padding:1.25rem;resize:vertical;transition:border-color .3s;outline:none;border-radius:0}
+#adInput:focus{border-color:rgba(200,146,42,0.4)}
+#adInput::placeholder{color:var(--text3)}
+.adcenter-bottom-row{display:flex;justify-content:space-between;align-items:center;margin-top:1rem}
+.char-count{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:.1em}
+.analyze-btn{background:var(--gold);border:none;color:#0C0A07;font-family:'Manrope',sans-serif;font-size:.875rem;font-weight:600;padding:.85rem 2rem;cursor:pointer;display:flex;align-items:center;gap:.75rem;transition:all .25s;border-radius:2px;letter-spacing:.02em}
+.analyze-btn:hover{background:#e0a43c;transform:translateY(-1px)}
+.analyze-btn:disabled{background:var(--text3);cursor:not-allowed;transform:none}
+.btn-arrow{font-size:1rem;transition:transform .25s}
+.analyze-btn:hover .btn-arrow{transform:translateX(4px)}
+
+/* OUTPUT */
+.adcenter-output{background:var(--bg2);padding:0}
+.output-header{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 2.5rem;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:1rem}
+.output-header-left{display:flex;align-items:center;gap:1.5rem}
+.output-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+.clear-btn{background:transparent;border:1px solid var(--border);color:var(--text3);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .75rem;cursor:pointer;transition:all .25s;border-radius:2px}
+.clear-btn:hover{border-color:var(--rose);color:var(--rose)}
+.score-badges{display:flex;gap:.5rem;flex-wrap:wrap}
+.score-badge{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .85rem;border-radius:2px}
+.score-badge.high{background:rgba(29,158,117,0.15);border:1px solid rgba(29,158,117,0.3);color:#4ecba0}
+.score-badge.mid{background:var(--gold2);border:1px solid rgba(200,146,42,0.3);color:var(--gold)}
+.score-badge.low{background:var(--rose2);border:1px solid rgba(155,94,110,0.3);color:var(--rose)}
+.output-body{padding:2.5rem;font-size:.9rem;line-height:1.8;color:var(--text2)}
+.output-body h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;font-style:italic;color:var(--text);margin:1.75rem 0 .75rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+.output-body h3:first-child{margin-top:0}
+.output-body p{margin-bottom:1rem}
+.output-body ul{margin:0 0 1rem 1.25rem}
+.output-body li{margin-bottom:.5rem}
+.output-body strong{color:var(--text);font-weight:500}
+.output-body .line-rewrite{background:var(--bg);border-left:2px solid var(--gold);padding:.75rem 1rem;margin:.75rem 0;font-style:italic;color:var(--text)}
+.output-body .line-original{background:var(--rose2);border-left:2px solid var(--rose);padding:.75rem 1rem;margin:.75rem 0;font-size:.85rem;color:var(--text2);text-decoration:line-through;opacity:.7}
+.output-body .avatar-hit{display:inline-flex;align-items:center;gap:.4rem;background:rgba(29,158,117,0.1);border:1px solid rgba(29,158,117,0.25);color:#4ecba0;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .65rem;border-radius:2px;margin:.25rem}
+.output-body .avatar-miss{display:inline-flex;align-items:center;gap:.4rem;background:var(--rose2);border:1px solid rgba(155,94,110,0.25);color:var(--rose);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .65rem;border-radius:2px;margin:.25rem}
+
+/* LOADING */
+.adcenter-loading{background:var(--bg2);padding:3rem 2.5rem;display:flex;align-items:center;justify-content:center}
+.loading-inner{width:100%;max-width:400px;text-align:center}
+.loading-bar{width:100%;height:1px;background:var(--border);margin:0 auto 1.25rem;overflow:hidden}
+.loading-fill{height:100%;background:var(--gold);width:0;transition:width .4s ease}
+.loading-text{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--text3);text-transform:uppercase}
+</style>
+
+<script>
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}
+  })
+},{threshold:.1,rootMargin:'0px 0px -60px 0px'})
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el))
+
+// Char counter
+document.getElementById('adInput').addEventListener('input',function(){
+  document.getElementById('charCount').textContent=this.value.length+' characters'
+})
+
+// Key management
+function saveKey(){
+  const key=document.getElementById('apiKeyInput').value.trim()
+  if(!key.startsWith('sk-ant-')){
+    document.getElementById('apiKeyInput').style.borderColor='var(--rose)'
+    document.getElementById('apiKeyInput').placeholder='Must start with sk-ant-...'
+    return
+  }
+  sessionStorage.setItem('seriva_key',key)
+  document.getElementById('keyArea').style.display='none'
+  const confirmed=document.getElementById('keyConfirmed')
+  confirmed.style.display='flex'
+  const inputArea=document.getElementById('adInputArea')
+  inputArea.style.opacity='1'
+  inputArea.style.pointerEvents='auto'
+}
+function clearKey(){
+  sessionStorage.removeItem('seriva_key')
+  document.getElementById('keyArea').style.display='block'
+  document.getElementById('keyConfirmed').style.display='none'
+  document.getElementById('adInputArea').style.opacity='.4'
+  document.getElementById('adInputArea').style.pointerEvents='none'
+  document.getElementById('apiKeyInput').value=''
+}
+// On load, restore key if present
+window.addEventListener('DOMContentLoaded',()=>{
+  const stored=sessionStorage.getItem('seriva_key')
+  if(stored){
+    document.getElementById('keyArea').style.display='none'
+    const confirmed=document.getElementById('keyConfirmed')
+    confirmed.style.display='flex'
+    const inputArea=document.getElementById('adInputArea')
+    inputArea.style.opacity='1'
+    inputArea.style.pointerEvents='auto'
+  }
+})
+document.querySelectorAll('.fmt-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.fmt-btn').forEach(b=>b.classList.remove('active'))
+    this.classList.add('active')
+  })
+})
+
+let selectedFormat='Script/UGC'
+document.querySelectorAll('.fmt-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){selectedFormat=this.dataset.fmt})
+})
+
+function clearAnalysis(){
+  document.getElementById('adOutput').style.display='none'
+  document.getElementById('adInput').value=''
+  document.getElementById('charCount').textContent='0 characters'
+}
+
+const loadingMessages=[
+  'Reading the script...',
+  'Mapping against avatar research...',
+  'Checking sub-avatar resonance...',
+  'Analysing emotional territory...',
+  'Building line-level suggestions...'
+]
+
+async function analyzeAd(){
+  const adText=document.getElementById('adInput').value.trim()
+  if(!adText){document.getElementById('adInput').focus();return}
+  const apiKey=sessionStorage.getItem('seriva_key')
+  if(!apiKey){alert('Please enter your Anthropic API key first.');return}
+
+  const btn=document.getElementById('analyzeBtn')
+  btn.disabled=true
+  document.getElementById('btnText').textContent='Analyzing...'
+  document.getElementById('adOutput').style.display='none'
+  document.getElementById('adLoading').style.display='flex'
+
+  // Animate loading bar
+  let msgIdx=0
+  const fill=document.getElementById('loadingFill')
+  const loadTxt=document.getElementById('loadingText')
+  loadTxt.textContent=loadingMessages[0]
+  fill.style.width='8%'
+  const msgInterval=setInterval(()=>{
+    msgIdx=(msgIdx+1)%loadingMessages.length
+    loadTxt.textContent=loadingMessages[msgIdx]
+    fill.style.width=Math.min(10+msgIdx*18,88)+'%'
+  },1800)
+
+  const AVATAR_CONTEXT=`You are an expert direct response creative strategist for Seriva Hair Complex Gummies , a hair regrowth supplement specifically formulated for diabetic women.
+
+FULL AVATAR RESEARCH BRIEF:
+
+PRIMARY AVATAR: Diabetic woman, 43–58, Type 2, on metformin 2–8 years. Has already tried biotin (didn't work). Was dismissed by her doctor. Actively hides her hair loss through daily styling behaviors.
+
+THE THREE SUB-AVATARS:
+1. THE ADAPTER (largest pool): Managing diabetes 3+ years. Has adapted to the condition. Hair loss is the one thing she cannot make peace with. Desires: to feel like herself again , not dramatic regrowth, just to look in the mirror without seeing evidence of everything diabetes has taken. Key behavior: styles around the thinning every morning without consciously acknowledging it. She says to herself: "I'm just going to have to accept this." She hasn't. That's why she's still scrolling. She needs: validation this is real and specific to her, and an explanation for why biotin failed.
+
+2. THE NEWLY DISCOVERED (most emotionally raw): 6–18 months into noticing. Just connected the dots between diabetes and hair loss. Rage is fresh. Just had doctor dismissal. Currently deep in Google rabbit holes. She says: "I can't believe my doctor never mentioned this. I found out from Instagram." She needs: to feel found, not marketed to. "This is for you" converts her.
+
+3. THE SKEPTIC (hardest to convert, highest value): Has tried multiple things. They failed. Has gone quiet about it , not because she accepted it, but because she is protecting herself from another disappointment. She says: "I've tried everything. Nothing works for me specifically." She needs: not hope, but explanation. The line that wakes her up: "Regular hair vitamins can't fix this because they're treating vitamin deficiency, not metabolic stress."
+
+EMOTIONAL ARCHITECTURE:
+- Shame: rooted in believing she shouldn't care about something "cosmetic" when she has a serious health condition
+- Rage: at the doctor who dismissed her, at metformin for depleting what her hair needs without anyone warning her
+- Grief: identity loss , she doesn't look like herself in photos or mirrors anymore
+- Exhaustion: from adapting, monitoring, modifying, being gracious about all of it
+- Fragile hope: she has been failed before, her walls are up, she needs acknowledgment of failure before she will believe again
+
+KEY BEHAVIORAL FINGERPRINTS (if an ad references these, she knows it was made for her):
+- Wears hair up not by style choice but to hide the thinning crown
+- Parts her hair differently than she used to
+- Sits strategically in group photos
+- Has declined a pool/beach/spa invitation
+- Dreads washing her hair , counts the clumps
+- Has a saved folder of diabetic hair loss posts she reads at night
+- Checks obsessively for baby hairs after washing
+- Has not been to the hairdresser in 4–8 months
+
+REAL VOICE FROM RESEARCH:
+- "I'm tired of dealing with diabetes and every shit that it causes."
+- "My GP is always abrupt with me so I stopped asking him anything and Google instead."
+- "I didn't recognise myself anymore and felt like a shell of myself."
+- "You just are not told about any of it at diagnosis."
+- "All my vitamin and mineral levels are normal, and so is my thyroid. It is just so frustrating."
+- "I remember cancelling plans because I didn't want to be seen."
+- "I feel much less alone." (what she feels when she finally sees content made for her)
+
+WHAT SHE IS ACTUALLY BUYING: Not hair growth. She is buying the morning where she gets ready without it being a problem to solve. The photo where she doesn't check how her part looks. The hairdresser appointment she isn't dreading. Evidence that she hasn't lost this too.
+
+THE T2D DISTINCTION: Controlling blood sugar alone does not fix her hair loss. Metformin depletes B12. Chronic DHT elevation from insulin resistance continues regardless of A1C. This is why biotin failed , it treated vitamin deficiency, not metabolic stress. This explanation, when delivered correctly, shifts her from skeptic to buyer.
+
+WINNING AD PATTERNS:
+- Ad 1 (husband proxy story): opened on thinning scalp, single words per frame, proxy frame lowers ad defenses, mechanism education via 3D animation, "she thought I didn't notice" was the scroll-stop
+- Ad 2 (direct first person): "If diabetes is making your hair fall out, but no one has explained why" , the most powerful line, validates her experience over medical authority, crying woman with hair clump was the visual scroll-stop, "for diabetic women like us" , the word "us" did identity work`
+
+  const userPrompt=`Ad Format: ${selectedFormat}
+
+AD TO ANALYZE:
+${adText}
+
+Please analyze this ad against the full avatar research above. Structure your response with these sections using ### headers:
+
+### Overall Assessment
+A 2–3 sentence summary of how well this ad speaks to the Seriva avatar. Be direct and honest.
+
+### Sub-Avatar Resonance
+For each of the three sub-avatars (The Adapter, The Newly Discovered, The Skeptic), rate the resonance as HIGH / MEDIUM / LOW and explain why in 1–2 sentences. Format: **The Adapter:** HIGH/MEDIUM/LOW , [reason]
+
+### What It Gets Right
+Specific lines or moments in the ad that hit the avatar accurately. Quote the lines directly.
+
+### Emotional Territory Missed
+Which of the five core emotions (Shame, Rage, Grief, Exhaustion, Fragile Hope) is the ad not reaching? What specific moment or feeling is missing?
+
+### Behavioral Fingerprints
+Does the ad reference any of the specific hiding behaviors? If not, which one would make the avatar feel most seen if added?
+
+### Line-Level Rewrites
+Pick 2–3 specific lines from the ad that could be sharper. For each, show the original and your rewrite.
+Format:
+ORIGINAL: [line]
+REWRITE: [your version] , [one sentence explaining why it's stronger]
+
+### The One Thing To Fix
+If you could only change one thing about this ad to dramatically improve avatar resonance, what would it be? Be specific.`
+
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':apiKey,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1500,
+        system:AVATAR_CONTEXT,
+        messages:[{role:'user',content:userPrompt}]
+      })
+    })
+    const data=await resp.json()
+    clearInterval(msgInterval)
+    fill.style.width='100%'
+
+    setTimeout(()=>{
+      document.getElementById('adLoading').style.display='none'
+      const raw=data.content[0].text
+
+      // Parse sub-avatar scores for badges
+      const badges=[]
+      const adapterMatch=raw.match(/The Adapter[:\s]*(HIGH|MEDIUM|LOW)/i)
+      const newlyMatch=raw.match(/The Newly Discovered[:\s]*(HIGH|MEDIUM|LOW)/i)
+      const skepticMatch=raw.match(/The Skeptic[:\s]*(HIGH|MEDIUM|LOW)/i)
+      if(adapterMatch) badges.push({label:'Adapter: '+adapterMatch[1],cls:adapterMatch[1]==='HIGH'?'high':adapterMatch[1]==='MEDIUM'?'mid':'low'})
+      if(newlyMatch) badges.push({label:'Newly Discovered: '+newlyMatch[1],cls:newlyMatch[1]==='HIGH'?'high':newlyMatch[1]==='MEDIUM'?'mid':'low'})
+      if(skepticMatch) badges.push({label:'Skeptic: '+skepticMatch[1],cls:skepticMatch[1]==='HIGH'?'high':skepticMatch[1]==='MEDIUM'?'mid':'low'})
+      document.getElementById('scoreBadges').innerHTML=badges.map(b=>`<span class="score-badge ${b.cls}">${b.label}</span>`).join('')
+
+      // Format the markdown output
+      let html=raw
+        .replace(/### (.*?)(\n|$)/g,'<h3>$1</h3>')
+        .replace(/\*\*ORIGINAL:\*\*/g,'').replace(/ORIGINAL:/g,'<div class="output-body"><strong>Original:</strong></div>')
+        .replace(/\*\*REWRITE:\*\*/g,'').replace(/REWRITE:/g,'<div class="output-body"><strong>Rewrite:</strong></div>')
+        .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g,'<em>$1</em>')
+        .replace(/^- (.*?)$/gm,'<li>$1</li>')
+        .replace(/(<li>.*<\/li>)/gs,'<ul>$1</ul>')
+        .replace(/\n\n/g,'</p><p>')
+        .replace(/\n/g,' ')
+
+      document.getElementById('outputBody').innerHTML='<p>'+html+'</p>'
+      document.getElementById('adOutput').style.display='block'
+      document.getElementById('adOutput').scrollIntoView({behavior:'smooth',block:'start'})
+      btn.disabled=false
+      document.getElementById('btnText').textContent='Analyze Against Avatar'
+    },400)
+  }catch(err){
+    clearInterval(msgInterval)
+    document.getElementById('adLoading').style.display='none'
+    document.getElementById('adOutput').style.display='block'
+    document.getElementById('outputBody').innerHTML='<p style="color:var(--rose)">Analysis failed. Please try again.</p>'
+    document.getElementById('scoreBadges').innerHTML=''
+    btn.disabled=false
+    document.getElementById('btnText').textContent='Analyze Against Avatar'
+  }
+}
+</script>
+</body>
+</html>
